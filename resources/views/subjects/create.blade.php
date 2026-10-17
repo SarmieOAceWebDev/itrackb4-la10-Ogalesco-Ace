@@ -41,7 +41,7 @@
             <option value="Core">Core</option>
             <option value="Elective">Elective</option>
         </select>
-         @error('units')
+         @error('category')
             <div class="invalid-feedback d-block">{{ $message }}</div>
         @enderror
     </div>
