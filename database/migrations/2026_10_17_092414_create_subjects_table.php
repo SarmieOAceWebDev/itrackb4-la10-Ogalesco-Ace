@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('subjects', function (Blueprint $table) {
-    $table->string('code', 10)->nullable();       
-    $table->string('subject', 100)->nullable();    
-    $table->integer('units', 1)->nullable();        
-    $table->string('category', 50)->nullable();   
-   
+        $table->id();
+        $table->string('code', 10)->nullable();       
+        $table->string('subject', 100)->nullable();    
+        $table->integer('units');     
+        $table->string('category', 50)->nullable();   
+        $table->timestamps();
 });
     
     }

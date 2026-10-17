@@ -12,7 +12,10 @@ class Subject extends Model
     protected function casts(): array
     {
         return [
-                 // your integer column
+           'code' => 'string',
+           'subject' => 'string',
+           'units' => 'integer',
+           'category' => 'string',
         ];
     }
 }

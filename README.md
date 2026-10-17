@@ -66,3 +66,15 @@ ANS:The laravels $request and validatate is the one who handles this automatical
 Q3.Your success message is displayed from the layout, which renders on every page. Explain why it does not appear on every page
 
 ANS:the layout renders on every page, but the success messege is inside an if somthing but in session(success) check, the laravel stores it as a flash data, which is unavailable for oly the next request after the subject is created . and once that oage displays it, the flash data is cleared, so that is does not appear on later pages .
+
+
+
+
+
+LA 9
+(answers nalang)
+q1 - Ginawa kong nullable ang code column para puwedeng ma save ang subject record kahit walang subject code na nailagay.then  Pinili ko ito dahil posibleng hindi pa available ang subject code kapag nag-a-add ng bagong subject.
+
+q2 - ang unang naging error ko ay noong binuksan ko ang subject detail page then meron pa sa last yung 9999 which is the ss 8. Ang error ay “no such column: subjects.id” dahil walang id column ang subjects table. Inayos ko ito sa pamamagitan ng pagdaragdag ng id column at paglalagay ng IDs sa existing records, yung sa last naman yung sa SS 8 sadya talaga kasi hangang 10 lang kaya ng mga subjects ko 
+
+q3 - gumagana pa rin yung mga pages kahit walang binagong Blade file dahil ang controller pa rin ang nagre return ng parehong Blade views at nagpapasa ng subject data na galing sa database. Ang model ang kumukuha ng records, habang ang Blade files ang nagpapakita ng data na ipinasa ng controller, pinish po thank you .

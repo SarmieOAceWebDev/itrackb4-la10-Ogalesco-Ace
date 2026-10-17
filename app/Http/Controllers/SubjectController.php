@@ -3,50 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Subject;
 class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
 
-    public function index(Request $request)
+    public function index()
     {
    
-        $code = $request->query('code', 'all');
-        $units = $request->query('units', 'all');
-        $all = $this ->subjects();
+      $subjects = Subject::all();
 
-        if ($code === 'all')
-            {
-                $subjects = $all;
-            }else{
-                $subjects = [];
-                foreach ($all as $id => $subject) {
-                    if ($subject['code'] === $code) {
-                        $subjects[$id] = $subject;
-                    }
-                }
-            }
-      if ($units === 'all') {
-            $subjects = $subjects;
-        } else {
-            $filteredSubjects = [];
-            foreach ($subjects as $id => $subject) {
-                if ($subject['units'] == (float)$units) {
-                    $filteredSubjects[$id] = $subject;
-                }
-            }
-            $subjects = $filteredSubjects;
-        }
-
-
-        return view('subjects.index', [
-            'subjects' => $subjects,
-            'code' => $code,
-            'units' => $units,
-           
-        ]);
+        return view('subjects.index', compact('subjects'));
             
     }
 
@@ -103,14 +72,12 @@ class SubjectController extends Controller
      */
     public function show(string $id)
     {
-         $subjects = $this->subjects();
+         $subject = Subject::findOrFail($id);
 
-        if (!isset($subjects[$id])) {
-            abort(404);
-        }
-        $subject = $subjects[$id];
-        return view('subjects.show', ['subject' => $subject, 'id' => $id]);
-
+        return view('subjects.show', [
+        'subject' => $subject,
+        'id' => $id,
+    ]);
        
     }
 
