@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('title', 'Create Subject')
 @section('content')
@@ -34,20 +35,22 @@
             <div class="invalid-feedback d-block">{{ $message }}</div>
         @enderror
     </div>
-    <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <select class="form-select" id="category" name="category" required>
-            <option value="">Select a category</option>
-            <option value="Core">Core</option>
-            <option value="Elective">Elective</option>
-        </select>
-         @error('category')
-            <div class="invalid-feedback d-block">{{ $message }}</div>
-        @enderror
-    </div>
+<div class="mb-3">
+    <label for="category_id" class="form-label">Category</label>
+    <select class="form-select" id="category_id" name="category_id" required>
+        <option value="">Select a category</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}"
+                @selected(old('category_id') == $category->id)
+            >{{ $category->name }}</option>
+        @endforeach
+    </select>
+    @error('category_id')
+        <div class="invalid-feedback d-block">{{ $message }}</div>
+    @enderror
+</div>
     <button type="submit" class="btn btn-primary">Create Subject</button>
 </form> 
         
-
 
 @endsection

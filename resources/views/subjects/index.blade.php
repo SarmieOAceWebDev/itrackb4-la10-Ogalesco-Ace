@@ -60,7 +60,7 @@
             <td>{{ $subject['code'] }}</td>
             <td>{{ $subject['subject'] }}</td>
             <td>{{ $subject['units'] }}</td>
-            <td></td>
+            <td>{{ $subject->category->name }}</td>
             
         </tr>
         @empty

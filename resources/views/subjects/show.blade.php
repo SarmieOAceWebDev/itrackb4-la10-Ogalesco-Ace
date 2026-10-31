@@ -9,6 +9,6 @@
     <p><strong>Subject Code:</strong> {{ $subject['code'] }}</p>
     <p><strong>Subject Title:</strong> {{ $subject['subject'] }}</p>
     <p><strong>Units:</strong> {{ $subject['units'] }}</p>
-    <p><strong>Category:</strong> {{ $subject['category'] }}</p>
+    <p><strong>Category:</strong> {{ $subject->category->name }}</p>
     <p><a href="{{ route('subjects.index') }}">Back to Subject List</a> </p>
 @endsection

@@ -78,3 +78,15 @@ q1 - Ginawa kong nullable ang code column para puwedeng ma save ang subject reco
 q2 - ang unang naging error ko ay noong binuksan ko ang subject detail page then meron pa sa last yung 9999 which is the ss 8. Ang error ay “no such column: subjects.id” dahil walang id column ang subjects table. Inayos ko ito sa pamamagitan ng pagdaragdag ng id column at paglalagay ng IDs sa existing records, yung sa last naman yung sa SS 8 sadya talaga kasi hangang 10 lang kaya ng mga subjects ko 
 
 q3 - gumagana pa rin yung mga pages kahit walang binagong Blade file dahil ang controller pa rin ang nagre return ng parehong Blade views at nagpapasa ng subject data na galing sa database. Ang model ang kumukuha ng records, habang ang Blade files ang nagpapakita ng data na ipinasa ng controller, pinish po thank you .
+
+
+
+LA10
+(answers nalang)
+
+Q1 -i turned the category column into a separate categories table because the several subjects share the same category, such as Major, Project, and Elective. Instead of repeating these values in every subject record, I used the category_id to connect each subject to its category.
+
+Q2 - the Screenshot 6 showed 11 queries because the application first retrieved all 10 subjects using one query, then retrieved the category of each subject separately. That resulted in 1 query for the subjects plus 10 queries for their categories
+
+Q3 - The method is named category() because each of the subject belongs to only one category. If I named it categories(), Laravel might look for a different foreign key based on the plural name, which could cause the relationship to fail unless I manually configured it.
+
