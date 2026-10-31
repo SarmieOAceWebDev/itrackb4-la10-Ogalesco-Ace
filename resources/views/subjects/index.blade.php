@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('title', 'Subject List')
 @section('content')
@@ -59,7 +60,7 @@
             <td>{{ $subject['code'] }}</td>
             <td>{{ $subject['subject'] }}</td>
             <td>{{ $subject['units'] }}</td>
-            <td>{{ $subject['category'] }}</td>
+            <td></td>
             
         </tr>
         @empty
@@ -68,5 +69,4 @@
                 No subjects available at the moment.
             </td>
         </tr>
-        @endforelse 
-          
+        @endforelse

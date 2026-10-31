@@ -4,24 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Subject;
+
 class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
-    public function index()
+    public function index(Request $request)
     {
-   
-      $subjects = Subject::all();
+        $query = Subject::query();
+
+        // Existing filter by subject code
+        $code = $request->query('code');
+
+        if ($code) {
+            $query = $query->where('code', $code);
+        }
+
+        // Existing filter by units
+        $units = $request->query('units');
+
+        if ($units && $units !== 'all') {
+            $query = $query->where('units', $units);
+        }
+
+        // LA10: filter the list when a filter is supplied
+        $filter = $request->query('filter');
+
+        if ($filter) {
+            $query = $query->where('category', $filter);
+        }
+
+        $subjects = $query->get();
 
         return view('subjects.index', compact('subjects'));
-            
     }
 
-
-
-    /**     
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
@@ -34,51 +53,30 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-       
         $validated = $request->validate([
             'code' => 'required|string|max:10',
-            'subject' => 'required|string|max:50',
-            'units' => 'required|numeric|min:1|max:2',
+            'subject' => 'required|string|max:100',
+            'units' => 'required|integer|min:1|max:100',
             'category' => 'required|string|max:50',
         ]);
 
+        Subject::create($validated);
 
-        $subjects = $this->subjects();
-        $id =max(array_keys($subjects)) + 1;
-
-        $subjects[$id] = [
-            'code' => $validated['code'],
-            'subject' => $validated['subject'],
-            'units' => (float)$validated['units'],
-            'category' => $validated['category'],
-        ];
-
-        $this->saveSubjects($subjects);
-
-        return redirect()->route('subjects.index')->with('success', 'Subject added successfully.');
-
-
+        return redirect()->route('subjects.index')
+            ->with('success', 'Subject added successfully.');
     }
-
-
-
-
-    
-
-
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-         $subject = Subject::findOrFail($id);
+        $subject = Subject::findOrFail($id);
 
         return view('subjects.show', [
-        'subject' => $subject,
-        'id' => $id,
-    ]);
-       
+            'subject' => $subject,
+            'id' => $id,
+        ]);
     }
 
     /**
@@ -88,6 +86,7 @@ class SubjectController extends Controller
     {
         //
     }
+
     /**
      * Update the specified resource in storage.
      */
@@ -95,6 +94,7 @@ class SubjectController extends Controller
     {
         //
     }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -102,44 +102,23 @@ class SubjectController extends Controller
     {
         //
     }
+
+    /**
+     * Filter subjects by category.
+     */
     public function filter($value = null)
     {
-        $subjects = $this->subjects();
+        $query = Subject::query();
 
         if ($value !== null) {
-            $filteredSubjects = [];
-
-            foreach ($subjects as $subject) {
-                if ($subject['category'] === $value) {
-                    $filteredSubjects[] = $subject;
-                }
-            }
-            $subjects = $filteredSubjects;
+            $query->where('category', $value);
         }
+
+        $subjects = $query->get();
+
         return view('subjects.filter', [
             'subjects' => $subjects,
-            'value' => $value
+            'value' => $value,
         ]);
     }
-
-
-   private function subjects()
-{
-    $path = storage_path('app/subjects.json');
-    return json_decode(file_get_contents($path), true);
-    
 }
-
-private function saveSubjects($subjects)
-{
-   
-    file_put_contents(
-        storage_path('app/subjects.json'),
-        json_encode($subjects, JSON_PRETTY_PRINT)
-    );
-    
-   
-}
-
-}
-
