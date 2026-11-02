@@ -7,17 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container mt-4">
+<body class="bg-light">
+    <div class="container mt-4 pb-5">
         @if (session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success shadow-sm">
             {{ session('success') }}
         </div>
         @endif
 
-        <h1>The Subject management system</h1>
+        <h1 class="h2 fw-bold mb-1">The Subject management system</h1>
+        <p class="text-muted small mb-4">Prepared by: Ace Sarmiento Ogalesco</p>
          @include('partials._nav')
-        <p>Prepared by: Ace Sarmiento Ogalesco</p>
 
 
         @yield('content')
