@@ -17,7 +17,7 @@ class SubjectController extends Controller
 
     public function index(Request $request)
     {
-        $query = Subject::with('category');
+        $query = Subject::withh('category');
 
         $code = $request->query('code');
         $units = $request->query('units');
@@ -95,7 +95,7 @@ class SubjectController extends Controller
     public function destroy(Subject $subject)
     {
 
-    abort_if($subject->category()->count() === 1, 403);
+    abort_if($subject->category()->count() === 1    , 403);
     $subject->delete();
     return redirect()->route('subjects.index')->with('success', 'Subject has been deleted successfully.');
     }
