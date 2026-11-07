@@ -90,3 +90,22 @@ Q2 - the Screenshot 6 showed 11 queries because the application first retrieved 
 
 Q3 - The method is named category() because each of the subject belongs to only one category. If I named it categories(), Laravel might look for a different foreign key based on the plural name, which could cause the relationship to fail unless I manually configured it.
 
+
+
+LA11 
+(Answers)
+Q1 - it needs two things, first is the route param name must match the controller argument name, and it must be type-hinted with the Model. If only the name matches, you just get a string ID, not the model. If only the type-hint matches, binding fails and it throws a 404.
+
+Q2 - It was the <a> tag, so it sends a GET request. But the delete route expects DELETE. So it didn't hit the destroy method, it matched the show route GET /pets/{pet} instead, that's why it opened the detail page. It needs a form with @method('DELETE').
+
+Q3 - it was the old('name', $subject->name) - If you leave out the second argument, the edit form will be empty on first load. If you use only the second argument, when validation fails the user's new input will be lost and it will revert to the database value.
+
+
+LA12
+(Answers)
+
+Q1 - well the file at the top is Laravels core, not my code. The error just bubbled up there. My actual mistake is lower in the stack trace - in app/ folder, highlighted as my file, like the controller or blade file
+
+Q2 - the error page only shows what broke at that second. The log will tell me next month how often it happened, what data the user sent, which user ID, and the pattern before it broke. Error page is gone after refresh, log stays.
+
+Q3 - well the 403 is better for APIs, or when user really has no permission and shouldn't be able to retry like trying to access admin route. It's a hard stop. and the Redirect back with message is better for web UI like validation or trying to edit someone else's pet. User can fix it or understand why, better UX.

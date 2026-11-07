@@ -19,4 +19,4 @@ Route::get('/subjects/filter/{value?}', function ($value = null) {
 
 Route::resource('subjects', SubjectController::class);
 
-
+    
