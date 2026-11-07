@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subject;
 use App\Models\Category;
+use Illuminate\Support\Facades\Log;
 
 
 
@@ -50,6 +51,9 @@ class SubjectController extends Controller
 
     public function store(Request $request)
     {
+            
+
+
         $validated = $request->validate([
             'code' => 'required|string|max:10',
             'subject' => 'required|string|max:25',
@@ -84,13 +88,20 @@ class SubjectController extends Controller
         ]);
 
         $subject->update($validated);
-
+        
         return redirect()->route('subjects.index')->with('success', 'Subject updated successfully.');
     }
 
     public function destroy(Subject $subject)
     {
+
+    abort_if($subject->category()->count() === 1, 403);
     $subject->delete();
     return redirect()->route('subjects.index')->with('success', 'Subject has been deleted successfully.');
     }
+
+
+
+
+
 }

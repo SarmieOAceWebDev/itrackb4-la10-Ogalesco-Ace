@@ -77,6 +77,7 @@
                 <form action="{{ route('subjects.destroy', $subject['id']) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
+                 
                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Do you want to delete this subject?')">Delete</button>
                 </form>
             </td>
