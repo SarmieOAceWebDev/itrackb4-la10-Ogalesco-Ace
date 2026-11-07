@@ -52,8 +52,8 @@ class SubjectController extends Controller
     {
         $validated = $request->validate([
             'code' => 'required|string|max:10',
-            'subject' => 'required|string|max:100',
-            'units' => 'required|integer|min:1|max:100',
+            'subject' => 'required|string|max:25',
+            'units' => 'required|integer|min:1|max:12',
             'category_id' => 'required|exists:categories,id',
         ]);
 
@@ -78,8 +78,8 @@ class SubjectController extends Controller
     {
         $validated = $request->validate([
             'code' => 'required|string|max:10',
-            'subject' => 'required|string|max:100',
-            'units' => 'required|integer|min:1|max:100',
+            'subject' => 'required|string|max:25',
+            'units' => 'required|integer|min:1|max:12',
             'category_id' => 'required|exists:categories,id',
         ]);
 
@@ -90,8 +90,7 @@ class SubjectController extends Controller
 
     public function destroy(Subject $subject)
     {
-        $subject->delete();
-
-        return redirect()->route('subjects.index')->with('success', 'Subject deleted successfully.');
+    $subject->delete();
+    return redirect()->route('subjects.index')->with('success', 'Subject has been deleted successfully.');
     }
 }

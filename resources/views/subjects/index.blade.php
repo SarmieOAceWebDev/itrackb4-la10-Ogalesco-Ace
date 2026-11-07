@@ -60,6 +60,7 @@
             <th>Subject Title</th>
             <th class="text-center">Units</th>
             <th>Category</th>
+            <th>Action</th>
         </tr>
         </thead>
 
@@ -71,7 +72,14 @@
             <td>{{ $subject['subject'] }}</td>
             <td class="text-center">{{ $subject['units'] }}</td>
             <td><span class="badge text-bg-info">{{ $subject->category->name }}</span></td>
-            
+            <td> 
+                <a href="{{ route('subjects.edit', $subject['id']) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                <form action="{{ route('subjects.destroy', $subject['id']) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Do you want to delete this subject?')">Delete</button>
+                </form>
+            </td>
         </tr>
         @empty
         <tr>

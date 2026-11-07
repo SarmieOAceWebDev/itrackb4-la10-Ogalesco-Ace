@@ -30,7 +30,7 @@
     </div>
     <div class="mb-3">
         <label for="units" class="form-label">Units</label>
-        <input type="number" class="form-control @error('units') is-invalid @enderror" id="units" name="units" required value="{{ old('units', $subject->units) }}" min="12" >
+        <input type="number" class="form-control @error('units') is-invalid @enderror" id="units" name="units" required value="{{ old('units', $subject->units) }}" min="1" max="10">
         @error('units')
             <div class="invalid-feedback d-block">{{ $message }}</div>
         @enderror
