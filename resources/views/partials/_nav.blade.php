@@ -8,4 +8,4 @@
     @if (request()->routeIs('subjects.index'))
         <a href="{{ route('subjects.create') }}" class="btn btn-success ms-auto">Add New Subject</a>
     @endif
-</nav>
+</nav>s

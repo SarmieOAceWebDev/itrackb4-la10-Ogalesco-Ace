@@ -62,28 +62,36 @@ class SubjectController extends Controller
         return redirect()->route('subjects.index')->with('success', 'Subject added successfully.');
     }
 
-    public function show(string $id)
+    public function show(Subject $subject)
     {
-         $subject = Subject::findOrFail($id);
+     return view('subjects.show', compact('subject'));
+    }
+    
+    public function edit(Subject $subject)
+    {
 
-        return view('subjects.show', [
-        'subject' => $subject,
-        'id' => $id,
+        $categories = Category::all();
+        return view('subjects.edit', compact('subject', 'categories'));
+    }
+
+    public function update(Request $request, Subject $subject)
+    {
+        $validated = $request->validate([
+            'code' => 'required|string|max:10',
+            'subject' => 'required|string|max:100',
+            'units' => 'required|integer|min:1|max:100',
+            'category_id' => 'required|exists:categories,id',
         ]);
+
+        $subject->update($validated);
+
+        return redirect()->route('subjects.index')->with('success', 'Subject updated successfully.');
     }
 
-    public function edit(string $id)
+    public function destroy(Subject $subject)
     {
-        //
-    }
+        $subject->delete();
 
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('subjects.index')->with('success', 'Subject deleted successfully.');
     }
 }

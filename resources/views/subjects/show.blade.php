@@ -5,11 +5,11 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
-    <p><strong>ID:</strong> {{ $id }}</p>
+    <p><strong>ID:</strong> {{ $subject['id'] }}</p>
     <p><strong>Subject Code:</strong> {{ $subject['code'] }}</p>
     <p><strong>Subject Title:</strong> {{ $subject['subject'] }}</p>
     <p><strong>Units:</strong> {{ $subject['units'] }}</p>
-    <p><strong>Category:</strong> <span class="badge text-bg-info">{{ $subject->category->name }}</span></p>
+    <p><strong>Category:</strong> <span class="badge text-bg-info">{{ $subject['category_name'] }}</span></p>
         </div>
     </div>
     <a href="{{ route('subjects.index') }}" class="btn btn-secondary mt-3">Back to Subject List</a>
